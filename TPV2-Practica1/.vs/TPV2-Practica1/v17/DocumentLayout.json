@@ -1,14 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\",
+  "WorkspaceRootPath": "C:\\Users\\PC de Alexia\\OneDrive\\Documentos\\GitHub\\TPV2-Practica1\\TPV2-Practica1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9948E05F-C760-4388-8502-49741C9A9509}|TPV2.vcxproj|C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{9948E05F-C760-4388-8502-49741C9A9509}|TPV2.vcxproj|C:\\Users\\PC de Alexia\\OneDrive\\Documentos\\GitHub\\TPV2-Practica1\\TPV2-Practica1\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{9948E05F-C760-4388-8502-49741C9A9509}|TPV2.vcxproj|solutionrelative:src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\TPV2-Practica1\\TPV2-Practica1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TPV2-Practica1\\TPV2-Practica1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\TPV2-Practica1\\TPV2-Practica1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,9 +31,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\src\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\PC de Alexia\\OneDrive\\Documentos\\GitHub\\TPV2-Practica1\\TPV2-Practica1\\src\\main.cpp",
               "RelativeDocumentMoniker": "src\\main.cpp",
-              "ToolTip": "C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\src\\main.cpp",
+              "ToolTip": "C:\\Users\\PC de Alexia\\OneDrive\\Documentos\\GitHub\\TPV2-Practica1\\TPV2-Practica1\\src\\main.cpp",
               "RelativeToolTip": "src\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
@@ -46,9 +45,9 @@
               "DocumentIndex": 1,
               "Title": "TPV2-Practica1.cpp",
               "DocumentMoniker": "C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\TPV2-Practica1\\TPV2-Practica1.cpp",
-              "RelativeDocumentMoniker": "TPV2-Practica1\\TPV2-Practica1.cpp",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\source\\repos\\TPV2-Practica1\\TPV2-Practica1\\TPV2-Practica1.cpp",
               "ToolTip": "C:\\Users\\PC de Alexia\\source\\repos\\TPV2-Practica1\\TPV2-Practica1\\TPV2-Practica1.cpp",
-              "RelativeToolTip": "TPV2-Practica1\\TPV2-Practica1.cpp",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\source\\repos\\TPV2-Practica1\\TPV2-Practica1\\TPV2-Practica1.cpp",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-02-09T16:18:42.538Z"
             }
