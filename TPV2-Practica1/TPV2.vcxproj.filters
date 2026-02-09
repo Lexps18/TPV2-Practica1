@@ -200,6 +200,279 @@
     <ClInclude Include="src\game\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_assert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_asyncio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_atomic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_begin_code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_bits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_blendmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_clipboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_close_code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_copying.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_cpuinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_dlopennote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_egl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_endian.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_events.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_filesystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_gamepad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_gpu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_guid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_haptic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_hidapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_hints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_init.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_intrin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_iostream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_joystick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_keycode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_loadso.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_locale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_main_impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_messagebox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_metal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_mutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_oldnames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengl_glext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengles2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengles2_gl2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengles2_gl2ext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengles2_gl2platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_opengles2_khrplatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_pen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_pixels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_platform_defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_power.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_process.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_properties.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_revision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_scancode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_sensor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_stdinc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_storage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_assert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_compare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_crc32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_fuzzer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_harness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_md5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_test_memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_touch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_tray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_video.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3\SDL_vulkan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3_image\SDL_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3_mixer\SDL_mixer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3_net\SDL_net.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3_ttf\SDL_textengine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL\include\SDL3_ttf\SDL_ttf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ecs\README.md" />
@@ -209,6 +482,51 @@
     <None Include="resources\config\pingpong.resources.json" />
     <None Include="resources\config\resources.json" />
     <None Include="resources\config\sdlutilsdemo.resources.json" />
+    <None Include="SDL\cmake\SDL3_imageConfig.cmake" />
+    <None Include="SDL\cmake\SDL3_imageConfigVersion.cmake" />
+    <None Include="SDL\cmake\SDL3_image-shared-targets.cmake" />
+    <None Include="SDL\cmake\SDL3_image-shared-targets-release.cmake" />
+    <None Include="SDL\cmake\SDL3_mixerConfig.cmake" />
+    <None Include="SDL\cmake\SDL3_mixerConfigVersion.cmake" />
+    <None Include="SDL\cmake\SDL3_mixer-shared-targets.cmake" />
+    <None Include="SDL\cmake\SDL3_mixer-shared-targets-release.cmake" />
+    <None Include="SDL\cmake\SDL3_netConfig.cmake" />
+    <None Include="SDL\cmake\SDL3_netConfigVersion.cmake" />
+    <None Include="SDL\cmake\SDL3_net-shared-targets.cmake" />
+    <None Include="SDL\cmake\SDL3_net-shared-targets-release.cmake" />
+    <None Include="SDL\cmake\SDL3_ttfConfig.cmake" />
+    <None Include="SDL\cmake\SDL3_ttfConfigVersion.cmake" />
+    <None Include="SDL\cmake\SDL3_ttf-shared-targets.cmake" />
+    <None Include="SDL\cmake\SDL3_ttf-shared-targets-release.cmake" />
+    <None Include="SDL\cmake\SDL3Config.cmake" />
+    <None Include="SDL\cmake\SDL3ConfigVersion.cmake" />
+    <None Include="SDL\cmake\SDL3headersTargets.cmake" />
+    <None Include="SDL\cmake\SDL3sharedTargets.cmake" />
+    <None Include="SDL\cmake\SDL3sharedTargets-release.cmake" />
+    <None Include="SDL\cmake\SDL3testTargets.cmake" />
+    <None Include="SDL\cmake\SDL3testTargets-release.cmake" />
+    <None Include="SDL\lib\pkgconfig\sdl3.pc" />
+    <None Include="SDL\lib\pkgconfig\sdl3-image.pc" />
+    <None Include="SDL\lib\pkgconfig\sdl3-mixer.pc" />
+    <None Include="SDL\lib\pkgconfig\sdl3-net.pc" />
+    <None Include="SDL\lib\pkgconfig\sdl3-ttf.pc" />
+    <None Include="SDL\RAEDME.md" />
+    <None Include="resources\.DS_Store" />
+    <None Include="bin\x64\Debug\TPV2.exe" />
+    <None Include="bin\x64\Debug\TPV2.pdb" />
+    <None Include="temp\x64\Debug\TPV2.tlog\CL.command.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\Cl.items.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\CL.read.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\CL.write.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\link.command.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\link.read.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\link.secondary.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\link.write.1.tlog" />
+    <None Include="temp\x64\Debug\TPV2.tlog\TPV2.lastbuildstate" />
+    <None Include="temp\x64\Debug\TPV2.exe.recipe" />
+    <None Include="temp\x64\Debug\TPV2.ilk" />
+    <None Include="temp\x64\Debug\vc143.idb" />
+    <None Include="temp\x64\Debug\vc143.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\fonts\ARIAL.ttf" />
@@ -303,5 +621,58 @@
     <Media Include="resources\sound\wall_hit.wav">
       <Filter>Resource Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="SDL\lib\SDL3.lib" />
+    <Library Include="SDL\lib\SDL3_image.lib" />
+    <Library Include="SDL\lib\SDL3_mixer.lib" />
+    <Library Include="SDL\lib\SDL3_net.lib" />
+    <Library Include="SDL\lib\SDL3_test.lib" />
+    <Library Include="SDL\lib\SDL3_ttf.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SDL\share\licenses\SDL3\LICENSE.txt" />
+    <Text Include="SDL\share\licenses\SDL3_image\LICENSE.txt" />
+    <Text Include="SDL\share\licenses\SDL3_image\optional\LICENSE.libpng.txt" />
+    <Text Include="SDL\share\licenses\SDL3_image\optional\LICENSE.tiff.txt" />
+    <Text Include="SDL\share\licenses\SDL3_image\optional\LICENSE.webp.txt" />
+    <Text Include="SDL\share\licenses\SDL3_image\optional\LICENSE.zlib.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\LICENSE.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.flac.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.gme.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.mpg123.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.ogg-vorbis.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.opus.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.opusfile.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.vorbis.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.wavpack.txt" />
+    <Text Include="SDL\share\licenses\SDL3_mixer\optional\LICENSE.xmp.txt" />
+    <Text Include="SDL\share\licenses\SDL3_net\LICENSE.txt" />
+    <Text Include="SDL\share\licenses\SDL3_ttf\LICENSE.txt" />
+    <Text Include="temp\x64\Debug\TPV2.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="temp\x64\Debug\BounceOnBorders.obj" />
+    <Object Include="temp\x64\Debug\Collisions.obj" />
+    <Object Include="temp\x64\Debug\EntityManager.obj" />
+    <Object Include="temp\x64\Debug\Game.obj" />
+    <Object Include="temp\x64\Debug\GameInfoMsgs.obj" />
+    <Object Include="temp\x64\Debug\GameState.obj" />
+    <Object Include="temp\x64\Debug\Image.obj" />
+    <Object Include="temp\x64\Debug\JSON.obj" />
+    <Object Include="temp\x64\Debug\json_demo.obj" />
+    <Object Include="temp\x64\Debug\JSONValue.obj" />
+    <Object Include="temp\x64\Debug\main.obj" />
+    <Object Include="temp\x64\Debug\PaddleAICtrl.obj" />
+    <Object Include="temp\x64\Debug\PaddleKBCtrl.obj" />
+    <Object Include="temp\x64\Debug\PaddleMouseCtrl.obj" />
+    <Object Include="temp\x64\Debug\RectangleViewer.obj" />
+    <Object Include="temp\x64\Debug\SDLUtils.obj" />
+    <Object Include="temp\x64\Debug\sdlutils_demo.obj" />
+    <Object Include="temp\x64\Debug\SDLUtilsError.obj" />
+    <Object Include="temp\x64\Debug\SoundEffect.obj" />
+    <Object Include="temp\x64\Debug\StopOnBorders.obj" />
+    <Object Include="temp\x64\Debug\Texture.obj" />
+    <Object Include="temp\x64\Debug\Vector2D.obj" />
   </ItemGroup>
 </Project>
