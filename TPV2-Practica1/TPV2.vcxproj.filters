@@ -48,6 +48,39 @@
     <ClCompile Include="src\utils\Vector2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\components\BounceOnBorders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\GameInfoMsgs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\GameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\PaddleAICtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\PaddleKBCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\PaddleMouseCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\RectangleViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\StopOnBorders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\json\JSON.h">
@@ -116,5 +149,159 @@
     <ClInclude Include="src\utils\Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\BounceOnBorders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\GameInfoMsgs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\PaddleAICtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\PaddleKBCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\PaddleMouseCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\RectangleViewer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\StopOnBorders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ecs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ecs_defs_example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\EntityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\ecs_defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\ecs\README.md" />
+    <None Include="src\json\README.md" />
+    <None Include="src\sdlutils\README.md" />
+    <None Include="resources\config\pingpong.cfg.json" />
+    <None Include="resources\config\pingpong.resources.json" />
+    <None Include="resources\config\resources.json" />
+    <None Include="resources\config\sdlutilsdemo.resources.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\fonts\ARIAL.ttf" />
+    <Font Include="resources\fonts\Capture_it.ttf" />
+    <Font Include="resources\fonts\Monofonto-regular.ttf" />
+    <Font Include="resources\fonts\NES-Chimera.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\images\airplanes.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\asteroid.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\asteroid_gold.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\fighter.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\fighter2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\fire.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\heart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\pacman.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\pacman_sprites.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\pointing-down.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\SDL_logo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\star.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\tennis_ball.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\images\whiterect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resources\sound\beat.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\explosion.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\gunshot.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\imperial_march.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\laugh.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\pacman_chomp.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\pacman_death.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\pacman_eat.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\pacman_intro.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\pacman_won.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\paddle_hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\thrust.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\thrust1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="resources\sound\wall_hit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

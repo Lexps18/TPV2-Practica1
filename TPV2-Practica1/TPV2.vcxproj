@@ -19,6 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\BounceOnBorders.cpp" />
+    <ClCompile Include="src\components\GameInfoMsgs.cpp" />
+    <ClCompile Include="src\components\GameState.cpp" />
+    <ClCompile Include="src\components\Image.cpp" />
+    <ClCompile Include="src\components\PaddleAICtrl.cpp" />
+    <ClCompile Include="src\components\PaddleKBCtrl.cpp" />
+    <ClCompile Include="src\components\PaddleMouseCtrl.cpp" />
+    <ClCompile Include="src\components\RectangleViewer.cpp" />
+    <ClCompile Include="src\components\StopOnBorders.cpp" />
+    <ClCompile Include="src\ecs\EntityManager.cpp" />
+    <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\json\JSON.cpp" />
     <ClCompile Include="src\json\JSONValue.cpp" />
     <ClCompile Include="src\json\json_demo.cpp" />
@@ -32,6 +43,23 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\BounceOnBorders.h" />
+    <ClInclude Include="src\components\GameInfoMsgs.h" />
+    <ClInclude Include="src\components\GameState.h" />
+    <ClInclude Include="src\components\Image.h" />
+    <ClInclude Include="src\components\PaddleAICtrl.h" />
+    <ClInclude Include="src\components\PaddleKBCtrl.h" />
+    <ClInclude Include="src\components\PaddleMouseCtrl.h" />
+    <ClInclude Include="src\components\RectangleViewer.h" />
+    <ClInclude Include="src\components\StopOnBorders.h" />
+    <ClInclude Include="src\components\Transform.h" />
+    <ClInclude Include="src\ecs\Component.h" />
+    <ClInclude Include="src\ecs\ecs.h" />
+    <ClInclude Include="src\ecs\ecs_defs_example.h" />
+    <ClInclude Include="src\ecs\Entity.h" />
+    <ClInclude Include="src\ecs\EntityManager.h" />
+    <ClInclude Include="src\game\ecs_defs.h" />
+    <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\json\JSON.h" />
     <ClInclude Include="src\json\JSONValue.h" />
     <ClInclude Include="src\json\json_demo.h" />
@@ -54,6 +82,53 @@
     <ClInclude Include="src\utils\ptr_iterator.h" />
     <ClInclude Include="src\utils\Singleton.h" />
     <ClInclude Include="src\utils\Vector2D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\config\pingpong.cfg.json" />
+    <None Include="resources\config\pingpong.resources.json" />
+    <None Include="resources\config\resources.json" />
+    <None Include="resources\config\sdlutilsdemo.resources.json" />
+    <None Include="src\ecs\README.md" />
+    <None Include="src\json\README.md" />
+    <None Include="src\sdlutils\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\fonts\ARIAL.ttf" />
+    <Font Include="resources\fonts\Capture_it.ttf" />
+    <Font Include="resources\fonts\Monofonto-regular.ttf" />
+    <Font Include="resources\fonts\NES-Chimera.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\images\airplanes.png" />
+    <Image Include="resources\images\asteroid.png" />
+    <Image Include="resources\images\asteroid_gold.png" />
+    <Image Include="resources\images\fighter.png" />
+    <Image Include="resources\images\fighter2.png" />
+    <Image Include="resources\images\fire.png" />
+    <Image Include="resources\images\heart.png" />
+    <Image Include="resources\images\pacman.png" />
+    <Image Include="resources\images\pacman_sprites.png" />
+    <Image Include="resources\images\pointing-down.png" />
+    <Image Include="resources\images\SDL_logo.png" />
+    <Image Include="resources\images\star.png" />
+    <Image Include="resources\images\tennis_ball.png" />
+    <Image Include="resources\images\whiterect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resources\sound\beat.wav" />
+    <Media Include="resources\sound\explosion.wav" />
+    <Media Include="resources\sound\gunshot.wav" />
+    <Media Include="resources\sound\imperial_march.wav" />
+    <Media Include="resources\sound\laugh.wav" />
+    <Media Include="resources\sound\pacman_chomp.wav" />
+    <Media Include="resources\sound\pacman_death.wav" />
+    <Media Include="resources\sound\pacman_eat.wav" />
+    <Media Include="resources\sound\pacman_intro.wav" />
+    <Media Include="resources\sound\pacman_won.wav" />
+    <Media Include="resources\sound\paddle_hit.wav" />
+    <Media Include="resources\sound\thrust.wav" />
+    <Media Include="resources\sound\thrust1.wav" />
+    <Media Include="resources\sound\wall_hit.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

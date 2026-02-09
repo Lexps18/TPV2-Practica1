@@ -1,7 +1,7 @@
 {
 
   "ball" : 
-    { "type" : "image", 
+    { "type" : "erect", 
       "image_file"  : "tennis_ball", 
       "color": "0x0000ffff"
     },
@@ -10,7 +10,7 @@
     { 
        "type" : "rect",
        "ctrl" : "auto", 
-       "color": "0x0000ffff",
+       "color": "0xaaaaffff",
        "keys" : [ 26,22,4 ]
     },
 
