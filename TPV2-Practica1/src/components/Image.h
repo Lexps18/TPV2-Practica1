@@ -2,6 +2,7 @@
 
 #pragma once
 #include "../ecs/Component.h"
+#include "../sdlutils/Texture.h"
 
 class Transform;
 class Texture;

@@ -48,31 +48,7 @@
     <ClCompile Include="src\utils\Vector2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\BounceOnBorders.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\GameInfoMsgs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\GameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\components\Image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\PaddleAICtrl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\PaddleKBCtrl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\PaddleMouseCtrl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\RectangleViewer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\components\StopOnBorders.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ecs\EntityManager.cpp">
@@ -149,31 +125,7 @@
     <ClInclude Include="src\utils\Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\BounceOnBorders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\GameInfoMsgs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\Image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\PaddleAICtrl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\PaddleKBCtrl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\PaddleMouseCtrl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\RectangleViewer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\components\StopOnBorders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\Transform.h">
@@ -473,6 +425,27 @@
     <ClInclude Include="SDL\include\SDL3_ttf\SDL_ttf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ecs\ecs_defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\DeAcceleration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\FollowMouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\DisableOnCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Generations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Health.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Gun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ecs\README.md" />
@@ -527,6 +500,15 @@
     <None Include="temp\x64\Debug\TPV2.ilk" />
     <None Include="temp\x64\Debug\vc143.idb" />
     <None Include="temp\x64\Debug\vc143.pdb" />
+    <None Include="resources\config\asteroid.cfg.json" />
+    <None Include="resources\config\asteroid.resources.json" />
+    <None Include="TPV2\Debug\vc143.idb" />
+    <None Include="TPV2\Debug\vc143.pdb" />
+    <None Include="TPV2\Debug\TPV2.tlog\CL.command.1.tlog" />
+    <None Include="TPV2\Debug\TPV2.tlog\CL.read.1.tlog" />
+    <None Include="TPV2\Debug\TPV2.tlog\CL.write.1.tlog" />
+    <None Include="TPV2\Debug\TPV2.tlog\TPV2.lastbuildstate" />
+    <None Include="TPV2\Debug\TPV2.tlog\unsuccessfulbuild" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\fonts\ARIAL.ttf" />
@@ -674,5 +656,12 @@
     <Object Include="temp\x64\Debug\StopOnBorders.obj" />
     <Object Include="temp\x64\Debug\Texture.obj" />
     <Object Include="temp\x64\Debug\Vector2D.obj" />
+    <Object Include="TPV2\Debug\Collisions.obj" />
+    <Object Include="TPV2\Debug\JSON.obj" />
+    <Object Include="TPV2\Debug\json_demo.obj" />
+    <Object Include="TPV2\Debug\JSONValue.obj" />
+    <Object Include="TPV2\Debug\main.obj" />
+    <Object Include="TPV2\Debug\SDLUtilsError.obj" />
+    <Object Include="TPV2\Debug\Vector2D.obj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,13 @@
+{
+  "images": {
+    "fighter": "images/fighter.png",
+    "asteroid": "images/asteroid.png",
+    "bullet": "images/fire.png"
+  },
+  "sounds": {
+    "gunshot": "sounds/gunshot.wav",
+    "thrust": "sounds/thrust.wav",
+    "explosion": "sounds/explosion.wav",
+    "collision": "sounds/collision.wav"
+  }
+}

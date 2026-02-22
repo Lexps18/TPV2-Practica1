@@ -2,200 +2,269 @@
 
 #include "Game.h"
 
-#include "../components/BounceOnBorders.h"
-#include "../components/GameInfoMsgs.h"
-#include "../components/GameState.h"
-#include "../components/Image.h"
-#include "../components/PaddleAICtrl.h"
-#include "../components/PaddleKBCtrl.h"
-#include "../components/PaddleMouseCtrl.h"
-#include "../components/RectangleViewer.h"
-#include "../components/StopOnBorders.h"
+#include <iostream>
 #include "../components/Transform.h"
-#include "../ecs/Entity.h"
+#include "../components/Image.h"
+#include "../components/DeAcceleration.h"
+#include "../components/FollowMouse.h"
+#include "../components/Gun.h"
+#include "../components/Generations.h"
+#include "../components/Health.h"
+#include "../components/DisableOnCollision.h"
 #include "../ecs/EntityManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
-#include "../utils/Collisions.h"
-
-using ecs::EntityManager;
+#include "ecs_defs.h"
 
 Game::Game() :
-		_mngr(nullptr), //
-		_ballTr(nullptr), //
-		_gameState(nullptr) {
+    mngr_(nullptr),
+    _state(nullptr),
+    _running_state(nullptr),
+    _paused_state(nullptr),
+    _newgame_state(nullptr),
+    _newround_state(nullptr),
+    _gameover_state(nullptr)
+{
 }
 
 Game::~Game() {
-	delete _mngr;
+    delete mngr_;
 
-	// release InputHandler if the instance was created correctly.
-	if (InputHandler::HasInstance())
-		InputHandler::Release();
+    if (InputHandler::HasInstance())
+        InputHandler::Release();
 
-	// release SLDUtil if the instance was created correctly.
-	if (SDLUtils::HasInstance())
-		SDLUtils::Release();
+    if (SDLUtils::HasInstance())
+        SDLUtils::Release();
 }
 
-void Game::init() {
+bool Game::init() {
+    // Inicializar SDLUtils
+    if (!SDLUtils::Init("Asteroids", 800, 600,
+        "resources/config/asteroid.resources.json")) {
+        std::cerr << "Error inicializando SDLUtils" << std::endl;
+        return false;
+    }
 
-	// initialize the SDL singleton
-	if (!SDLUtils::Init("Ping Pong", 800, 600,
-			"resources/config/pingpong.resources.json")) {
+    // Inicializar InputHandler
+    if (!InputHandler::Init()) {
+        std::cerr << "Error inicializando InputHandler" << std::endl;
+        return false;
+    }
 
-		std::cerr << "Something went wrong while initializing SDLUtils"
-				<< std::endl;
-		return;
-	}
+    sdlutils().showCursor();
+    return true;
+}
 
-	// initialize the InputHandler singleton
-	if (!InputHandler::Init()) {
-		std::cerr << "Something went wrong while initializing SDLHandler"
-				<< std::endl;
-		return;
+void Game::initGame() {
+    // Crear el manager
+    mngr_ = new ecs::EntityManager();
 
-	}
+    // --- Crear el CAZA ---
+    auto* fighter = mngr_->addEntity(ecs::grp::FIGHTER);
 
+    float fw = 40.0f, fh = 40.0f;
+    float fx = (sdlutils().width() - fw) / 2.0f;
+    float fy = (sdlutils().height() - fh) / 2.0f;
 
-	sdlutils().hideCursor();
+    fighter->addComponent<Transform>(
+        Vector2D(fx, fy),   // posicion central
+        Vector2D(0.0f, 0.0f), // velocidad inicial
+        fw, fh,             // tamanio
+        0.0f                // rotacion
+    );
+    fighter->addComponent<Image>(&sdlutils().images().at("fighter"));
+    fighter->addComponent<DeAcceleration>(0.99f);
+    fighter->addComponent<FollowMouse>();
+    fighter->addComponent<Gun>();
+    fighter->addComponent<Health>(3);
 
-	// Create the manager
-	_mngr = new EntityManager();
+    // Registrar el caza como handler
+    mngr_->setHandler(ecs::hdlr::FIGHTER_HDLR, fighter);
 
-	// create the ball entity
-	//
-	auto ball = _mngr->addEntity();
-	_mngr->setHandler(ecs::hdlr::BALL, ball);
+    // --- Crear ASTEROIDES iniciales ---
+    int numAsteroids = 5;
+    for (int i = 0; i < numAsteroids; i++) {
+        auto& rng = sdlutils().rand();
 
-	_ballTr = ball->addComponent<Transform>();
-	auto ballSize = 15.0f;
-	auto ballX = (sdlutils().width() - ballSize) / 2.0f;
-	auto ballY = (sdlutils().height() - ballSize) / 2.0f;
-	_ballTr->init(Vector2D(ballX, ballY), Vector2D(), ballSize, ballSize, 0.0f);
+        // Generaciones aleatorias entre 1 y 3
+        int gen = rng.nextInt(1, 4); // [1, 3]
 
-	ball->addComponent<Image>(&sdlutils().images().at("tennis_ball"));
-	ball->addComponent<BounceOnBorders>();
+        // Tamano segun generaciones
+        float aSize = 10.0f + 5.0f * gen;
 
-	// create the left paddle
-	auto leftPaddle = _mngr->addEntity(ecs::grp::PADDLES);
+        // Posicion aleatoria en los bordes
+        float ax, ay;
+        int border = rng.nextInt(0, 4); // 0=arriba, 1=abajo, 2=izq, 3=der
+        switch (border) {
+        case 0: ax = (float)rng.nextInt(0, sdlutils().width());  ay = 0.0f; break;
+        case 1: ax = (float)rng.nextInt(0, sdlutils().width());  ay = (float)sdlutils().height(); break;
+        case 2: ax = 0.0f; ay = (float)rng.nextInt(0, sdlutils().height()); break;
+        default: ax = (float)sdlutils().width(); ay = (float)rng.nextInt(0, sdlutils().height()); break;
+        }
 
-	auto leftPaddleTr = leftPaddle->addComponent<Transform>();
-	auto leftPaddleWidth = 10.0f;
-	auto leftPaddleHeight = 50.0f;
-	auto leftPaddleX = 5.f;
-	auto leftPaddleY = (sdlutils().height() - leftPaddleHeight) / 2.0f;
-	leftPaddleTr->init(Vector2D(leftPaddleX, leftPaddleY), Vector2D(),
-			leftPaddleWidth, leftPaddleHeight, 0.0f);
+        // Posicion objetivo: zona central + offset aleatorio
+        float cx = sdlutils().width() / 2.0f + (float)rng.nextInt(-100, 101);
+        float cy = sdlutils().height() / 2.0f + (float)rng.nextInt(-100, 101);
 
-	leftPaddle->addComponent<StopOnBorders>();
-	leftPaddle->addComponent < RectangleViewer > (build_sdlcolor(0xff0000ff));
-//	leftPaddle->addComponent<PaddleKBCtrl>();
-//	leftPaddle->addComponent<PaddleMouseCtrl>();
-	leftPaddle->addComponent<PaddleAICtrl>();
+        Vector2D p(ax, ay);
+        Vector2D c(cx, cy);
 
-	// create the right paddle
-	auto rightPaddle = _mngr->addEntity(ecs::grp::PADDLES);
+        // Velocidad hacia el centro
+        float speed = rng.nextInt(1, 11) / 10.0f; // [0.1, 1.0]
+        Vector2D v = (c - p).normalize() * speed;
 
-	auto rightPaddleTr = rightPaddle->addComponent<Transform>();
-	auto rightPaddleWidth = 10.0f;
-	auto rightPaddleHeight = 50.0f;
-	auto rightPaddleX = sdlutils().width() - rightPaddleWidth - 5.0f;
-	auto rightPaddleY = (sdlutils().height() - rightPaddleHeight) / 2.0f;
-	rightPaddleTr->init(Vector2D(rightPaddleX, rightPaddleY), Vector2D(),
-			rightPaddleWidth, rightPaddleHeight, 0.0f);
+        auto* asteroid = mngr_->addEntity(ecs::grp::ASTEROIDS);
+        asteroid->addComponent<Transform>(p, v, aSize, aSize, 0.0f);
+        asteroid->addComponent<Image>(&sdlutils().images().at("asteroid"));
+        asteroid->addComponent<Generations>(gen);
+        asteroid->addComponent<DisableOnCollision>();
+    }
+}
 
-	rightPaddle->addComponent<StopOnBorders>();
-	rightPaddle->addComponent < RectangleViewer > (build_sdlcolor(0x00ff00ff));
-
-//	rightPaddle->addComponent<PaddleKBCtrl>();
-	rightPaddle->addComponent<PaddleMouseCtrl>();
-//	rightPaddle->addComponent<PaddleAICtrl>();
-
-	// create game control entity
-	auto gameCtrl = _mngr->addEntity();
-	_gameState = gameCtrl->addComponent<GameState>();
-	gameCtrl->addComponent<GameInfoMsgs>();
-
+void Game::setState(State s) {
+    // Por ahora no tenemos estados concretos implementados,
+    // dejamos el cuerpo preparado para la practica 2
+    // _state->leave();
+    // switch(s) { ... }
+    // _state->enter();
 }
 
 void Game::start() {
+    bool exit = false;
+    auto& ihdlr = ih();
 
-	// a boolean to exit the loop
-	bool exit = false;
+    sdlutils().virtualTimer().resetTime();
 
-	auto &ihdlr = ih();
+    while (!exit) {
+        Uint32 startTime = sdlutils().virtualTimer().currTime();
 
-	// reset the time before starting - so we calculate correct
-	// delta-time in the first iteration
-	//
-	sdlutils().resetTime();
+        ihdlr.refresh();
 
-	while (!exit) {
-		// store the current time -- all game objects should use this time when
-		// then need to the current time. They also have accessed to the time elapsed
-		// between the last two calls to regCurrTime().
-		Uint32 startTime = sdlutils().regCurrTime();
+        if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
+            exit = true;
+            continue;
+        }
 
-		// refresh the input handler
-		ihdlr.refresh();
+        mngr_->update();
 
-		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
-			exit = true;
-			continue;
-		}
+        checkCollisions();
 
-		_mngr->update();
-		_mngr->refresh();
+        mngr_->refresh();
 
-		checkCollisions();
+        sdlutils().clearRenderer();
+        mngr_->render();
+        sdlutils().presentRenderer();
 
-		sdlutils().clearRenderer();
-		_mngr->render();
-		sdlutils().presentRenderer();
-
-		Uint32 frameTime = sdlutils().currRealTime() - startTime;
-
-		if (frameTime < 10)
-			SDL_Delay(10 - frameTime);
-	}
-
+        Uint32 frameTime = sdlutils().virtualTimer().currTime() - startTime;
+        if (frameTime < 10)
+            SDL_Delay(10 - frameTime);
+    }
 }
 
 void Game::checkCollisions() {
-	if (_gameState->getState() != GameState::RUNNING)
-		return;
+    // Obtener el caza
+    auto* fighter = mngr_->getHandler(ecs::hdlr::FIGHTER_HDLR);
+    if (fighter == nullptr || !fighter->isAlive()) return;
 
-	bool ballCollidesWithPaddle = false;
+    auto* fighterTr = fighter->getComponent<Transform>();
+    auto* fighterHealth = fighter->getComponent<Health>();
+    auto* fighterGun = fighter->getComponent<Gun>();
 
-	auto &ballPos = _ballTr->getPos();
-	auto ballWidth = _ballTr->getWidth();
-	auto ballHeight = _ballTr->getHeight();
+    if (fighterTr == nullptr) return;
 
-	for (auto e : _mngr->getEntities(ecs::grp::PADDLES)) {
-		auto paddleTr_ = e->getComponent<Transform>();
-		ballCollidesWithPaddle = Collisions::collides(paddleTr_->getPos(),
-				paddleTr_->getWidth(), paddleTr_->getHeight(), ballPos,
-				ballWidth, ballHeight);
+    auto& asteroids = mngr_->getEntities(ecs::grp::ASTEROIDS);
 
-		if (ballCollidesWithPaddle)
-			break;
-	}
+    // --- Colision BALAS vs ASTEROIDES ---
+    if (fighterGun != nullptr) {
+        for (auto& bullet : *fighterGun) {
+            if (!bullet.used) continue;
 
-	if (ballCollidesWithPaddle) {
+            for (auto* asteroid : asteroids) {
+                if (!asteroid->isAlive()) continue;
 
-		// change the direction of the ball, and increment the speed
-		auto &vel = _ballTr->getVel(); // the use of & is important, so the changes goes directly to the ball
-		vel.setX(-vel.getX());
-		vel = vel * 1.2f;
+                auto* asTr = asteroid->getComponent<Transform>();
+                if (asTr == nullptr) continue;
 
-		// play some sound
-		sdlutils().soundEffects().at("paddle_hit").play("se");
-	} else if (_ballTr->getPos().getX() < 0)
-		_gameState->onBallExit(GameState::LEFT);
-	else if (_ballTr->getPos().getX() + _ballTr->getWidth()
-			> sdlutils().width())
-		_gameState->onBallExit(GameState::RIGHT);
+                // Colision simple AABB
+                float bx = bullet.pos.getX(), by = bullet.pos.getY();
+                float bw = (float)bullet.width, bh = (float)bullet.height;
+                float ax = asTr->getPos().getX(), ay = asTr->getPos().getY();
+                float aw = asTr->getWidth(), ah = asTr->getHeight();
 
+                bool collides =
+                    bx < ax + aw && bx + bw > ax &&
+                    by < ay + ah && by + bh > ay;
+
+                if (collides) {
+                    // Desactivar bala
+                    bullet.used = false;
+
+                    // Dividir o destruir asteroide
+                    auto* gen = asteroid->getComponent<Generations>();
+                    int g = (gen != nullptr) ? gen->numGenerations_ : 0;
+
+                    // Desactivar asteroide actual
+                    asteroid->setAlive(false);
+
+                    // Crear sub-asteroides si gen > 1
+                    if (g > 1) {
+                        auto& rng = sdlutils().rand();
+                        Vector2D ap = asTr->getPos();
+                        Vector2D av = asTr->getVel();
+                        float aw2 = asTr->getWidth(), ah2 = asTr->getHeight();
+
+                        for (int k = 0; k < 2; k++) {
+                            int r = rng.nextInt(0, 360);
+                            Vector2D newPos = ap + av.rotate((float)r) * 2.0f * std::max(aw2, ah2);
+                            Vector2D newVel = av.rotate((float)r) * 1.1f;
+
+                            int newGen = g - 1;
+                            float newSize = 10.0f + 5.0f * newGen;
+
+                            auto* newAsteroid = mngr_->addEntity(ecs::grp::ASTEROIDS);
+                            newAsteroid->addComponent<Transform>(newPos, newVel, newSize, newSize, 0.0f);
+                            newAsteroid->addComponent<Image>(&sdlutils().images().at("asteroid"));
+                            newAsteroid->addComponent<Generations>(newGen);
+                            newAsteroid->addComponent<DisableOnCollision>();
+                        }
+                    }
+
+                    sdlutils().soundEffects().at("explosion").play();
+                    break; // esta bala ya colisiono, siguiente bala
+                }
+            }
+        }
+    }
+
+    // --- Colision CAZA vs ASTEROIDES ---
+    for (auto* asteroid : asteroids) {
+        if (!asteroid->isAlive()) continue;
+
+        auto* asTr = asteroid->getComponent<Transform>();
+        if (asTr == nullptr) continue;
+
+        float fx2 = fighterTr->getPos().getX(), fy2 = fighterTr->getPos().getY();
+        float fw2 = fighterTr->getWidth(), fh2 = fighterTr->getHeight();
+        float ax2 = asTr->getPos().getX(), ay2 = asTr->getPos().getY();
+        float aw2 = asTr->getWidth(), ah2 = asTr->getHeight();
+
+        bool collides =
+            fx2 < ax2 + aw2 && fx2 + fw2 > ax2 &&
+            fy2 < ay2 + ah2 && fy2 + fh2 > ay2;
+
+        if (collides) {
+            // Desactivar asteroide
+            asteroid->setAlive(false);
+
+            // Quitar una vida al caza
+            if (fighterHealth != nullptr) {
+                fighterHealth->lives_--;
+                if (fighterHealth->lives_ <= 0) {
+                    fighter->setAlive(false);
+                }
+            }
+            break;
+        }
+    }
 }

@@ -19,15 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\components\BounceOnBorders.cpp" />
-    <ClCompile Include="src\components\GameInfoMsgs.cpp" />
-    <ClCompile Include="src\components\GameState.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
-    <ClCompile Include="src\components\PaddleAICtrl.cpp" />
-    <ClCompile Include="src\components\PaddleKBCtrl.cpp" />
-    <ClCompile Include="src\components\PaddleMouseCtrl.cpp" />
-    <ClCompile Include="src\components\RectangleViewer.cpp" />
-    <ClCompile Include="src\components\StopOnBorders.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\json\JSON.cpp" />
@@ -43,6 +35,12 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\Gun.h" />
+    <ClInclude Include="src\components\Health.h" />
+    <ClInclude Include="src\components\Generations.h" />
+    <ClInclude Include="src\components\DisableOnCollision.h" />
+    <ClInclude Include="src\components\FollowMouse.h" />
+    <ClInclude Include="src\components\DeAcceleration.h" />
     <ClInclude Include="SDL\include\SDL3\SDL.h" />
     <ClInclude Include="SDL\include\SDL3\SDL_assert.h" />
     <ClInclude Include="SDL\include\SDL3\SDL_asyncio.h" />
@@ -134,18 +132,11 @@
     <ClInclude Include="SDL\include\SDL3_net\SDL_net.h" />
     <ClInclude Include="SDL\include\SDL3_ttf\SDL_textengine.h" />
     <ClInclude Include="SDL\include\SDL3_ttf\SDL_ttf.h" />
-    <ClInclude Include="src\components\BounceOnBorders.h" />
-    <ClInclude Include="src\components\GameInfoMsgs.h" />
-    <ClInclude Include="src\components\GameState.h" />
     <ClInclude Include="src\components\Image.h" />
-    <ClInclude Include="src\components\PaddleAICtrl.h" />
-    <ClInclude Include="src\components\PaddleKBCtrl.h" />
-    <ClInclude Include="src\components\PaddleMouseCtrl.h" />
-    <ClInclude Include="src\components\RectangleViewer.h" />
-    <ClInclude Include="src\components\StopOnBorders.h" />
     <ClInclude Include="src\components\Transform.h" />
     <ClInclude Include="src\ecs\Component.h" />
     <ClInclude Include="src\ecs\ecs.h" />
+    <ClInclude Include="src\ecs\ecs_defs.h" />
     <ClInclude Include="src\ecs\ecs_defs_example.h" />
     <ClInclude Include="src\ecs\Entity.h" />
     <ClInclude Include="src\ecs\EntityManager.h" />
@@ -178,6 +169,8 @@
     <None Include="bin\x64\Debug\TPV2.exe" />
     <None Include="bin\x64\Debug\TPV2.pdb" />
     <None Include="resources\.DS_Store" />
+    <None Include="resources\config\asteroid.cfg.json" />
+    <None Include="resources\config\asteroid.resources.json" />
     <None Include="resources\config\pingpong.cfg.json" />
     <None Include="resources\config\pingpong.resources.json" />
     <None Include="resources\config\resources.json" />
@@ -227,6 +220,13 @@
     <None Include="temp\x64\Debug\TPV2.tlog\TPV2.lastbuildstate" />
     <None Include="temp\x64\Debug\vc143.idb" />
     <None Include="temp\x64\Debug\vc143.pdb" />
+    <None Include="TPV2\Debug\TPV2.tlog\CL.command.1.tlog" />
+    <None Include="TPV2\Debug\TPV2.tlog\CL.read.1.tlog" />
+    <None Include="TPV2\Debug\TPV2.tlog\CL.write.1.tlog" />
+    <None Include="TPV2\Debug\TPV2.tlog\TPV2.lastbuildstate" />
+    <None Include="TPV2\Debug\TPV2.tlog\unsuccessfulbuild" />
+    <None Include="TPV2\Debug\vc143.idb" />
+    <None Include="TPV2\Debug\vc143.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\fonts\ARIAL.ttf" />
@@ -294,30 +294,6 @@
     <Text Include="SDL\share\licenses\SDL3_net\LICENSE.txt" />
     <Text Include="SDL\share\licenses\SDL3_ttf\LICENSE.txt" />
     <Text Include="temp\x64\Debug\TPV2.log" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="temp\x64\Debug\BounceOnBorders.obj" />
-    <Object Include="temp\x64\Debug\Collisions.obj" />
-    <Object Include="temp\x64\Debug\EntityManager.obj" />
-    <Object Include="temp\x64\Debug\Game.obj" />
-    <Object Include="temp\x64\Debug\GameInfoMsgs.obj" />
-    <Object Include="temp\x64\Debug\GameState.obj" />
-    <Object Include="temp\x64\Debug\Image.obj" />
-    <Object Include="temp\x64\Debug\JSON.obj" />
-    <Object Include="temp\x64\Debug\JSONValue.obj" />
-    <Object Include="temp\x64\Debug\json_demo.obj" />
-    <Object Include="temp\x64\Debug\main.obj" />
-    <Object Include="temp\x64\Debug\PaddleAICtrl.obj" />
-    <Object Include="temp\x64\Debug\PaddleKBCtrl.obj" />
-    <Object Include="temp\x64\Debug\PaddleMouseCtrl.obj" />
-    <Object Include="temp\x64\Debug\RectangleViewer.obj" />
-    <Object Include="temp\x64\Debug\SDLUtils.obj" />
-    <Object Include="temp\x64\Debug\SDLUtilsError.obj" />
-    <Object Include="temp\x64\Debug\sdlutils_demo.obj" />
-    <Object Include="temp\x64\Debug\SoundEffect.obj" />
-    <Object Include="temp\x64\Debug\StopOnBorders.obj" />
-    <Object Include="temp\x64\Debug\Texture.obj" />
-    <Object Include="temp\x64\Debug\Vector2D.obj" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

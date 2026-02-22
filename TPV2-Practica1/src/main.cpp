@@ -1,25 +1,38 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
 
 #include <iostream>
-
 #include "game/Game.h"
 
 int main(int, char**) {
+    try {
+        // Inicializar SDL (SDLUtils + InputHandler)
+        if (!Game::Init()) {
+            std::cerr << "No se pudo inicializar el juego." << std::endl;
+            return 1;
+        }
 
-	try {
-		Game g;
-		g.init();
-		g.start();
-	} catch (const std::string &e) { // catch exceptions thrown as strings
-		std::cerr << e << std::endl;
-	} catch (const char *e) { // catch exceptions thrown as char*
-		std::cerr << e << std::endl;
-	} catch (const std::exception &e) { // catch exceptions thrown as a sub-type of std::exception
-		std::cerr << e.what();
-	} catch (...) {
-		std::cerr << "Caught and exception of unknown type ...";
-	}
+        // Inicializar entidades del juego
+        Game::Instance()->initGame();
 
-	return 0;
+        // Bucle principal
+        Game::Instance()->start();
+
+        // Liberar singleton
+        Game::Release();
+
+    }
+    catch (const std::string& e) {
+        std::cerr << e << std::endl;
+    }
+    catch (const char* e) {
+        std::cerr << e << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cerr << "Excepcion desconocida." << std::endl;
+    }
+
+    return 0;
 }
-

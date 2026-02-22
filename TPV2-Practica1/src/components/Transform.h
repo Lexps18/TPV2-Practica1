@@ -11,8 +11,12 @@ public:
 	__CMPID_DECL__(ecs::cmp::TRANSFORM)
 
 	Transform() :
-			_pos(), _vel(), _width(), _height(), _rot() {
-	}
+		_pos(), 
+		_vel(), 
+		_width(), 
+		_height(), 
+		_rot() 
+	{}
 
 	Transform(Vector2D pos, Vector2D vel, float w, float h, float r) :
 			_pos(pos), _vel(vel), _width(w), _height(h), _rot(r) {
