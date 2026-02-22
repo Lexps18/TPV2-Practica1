@@ -1,13 +1,67 @@
 {
-  "images": {
-    "fighter": "images/fighter.png",
-    "asteroid": "images/asteroid.png",
-    "bullet": "images/fire.png"
-  },
-  "sounds": {
-    "gunshot": "sounds/gunshot.wav",
-    "thrust": "sounds/thrust.wav",
-    "explosion": "sounds/explosion.wav",
-    "collision": "sounds/collision.wav"
-  }
+  "fonts": [
+    {
+      "id": "NES16",
+      "file": "resources/fonts/NES-Chimera.ttf",
+      "size": 16
+    },
+    {
+      "id": "NES24",
+      "file": "resources/fonts/NES-Chimera.ttf",
+      "size": 24
+    },
+    {
+      "id": "ARIAL16",
+      "file": "resources/fonts/ARIAL.ttf",
+      "size": 16
+    }
+  ],
+  "images": [
+    {
+      "id": "fighter",
+      "file": "resources/images/fighter.png"
+    },
+    {
+      "id": "fighter2",
+      "file": "resources/images/fighter2.png"
+    },
+    {
+      "id": "asteroid",
+      "file": "resources/images/asteroid.png"
+    },
+    {
+      "id": "asteroid_gold",
+      "file": "resources/images/asteroid_gold.png"
+    },
+    {
+      "id": "fire",
+      "file": "resources/images/fire.png"
+    },
+    {
+      "id": "heart",
+      "file": "resources/images/heart.png"
+    },
+    {
+      "id": "star",
+      "file": "resources/images/star.png"
+    }
+  ],
+  "sounds": [
+    {
+      "id": "gunshot",
+      "file": "resources/sound/gunshot.wav"
+    },
+    {
+      "id": "explosion",
+      "file": "resources/sound/explosion.wav"
+    },
+    {
+      "id": "thrust",
+      "file": "resources/sound/thrust.wav"
+    },
+    {
+      "id": "thrust1",
+      "file": "resources/sound/thrust1.wav"
+    }
+  ]
 }

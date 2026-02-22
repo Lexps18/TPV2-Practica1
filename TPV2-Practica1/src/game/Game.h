@@ -7,6 +7,8 @@
 
 // Forward declarations
 class GameState;
+class FighterUtils;
+class AsteroidsUtils;
 
 class Game : public Singleton<Game> {
     friend Singleton<Game>;
@@ -14,43 +16,34 @@ class Game : public Singleton<Game> {
 public:
     virtual ~Game();
 
-    // Inicializa SDL y SDLUtils (llamado desde main)
     bool init();
-
-    // Inicializa las entidades del juego (llamado desde main tras init)
     void initGame();
-
-    // Bucle principal
     void start();
 
-    // Acceso al EntityManager
-    inline ecs::EntityManager* getMngr() {
-        return mngr_;
-    }
+    inline ecs::EntityManager* getMngr() { return mngr_; }
 
-    // Estados del juego
-    enum State {
-        RUNNING, PAUSED, NEWGAME, NEWROUND, GAMEOVER
-    };
-
+    enum State { RUNNING, PAUSED, NEWGAME, NEWROUND, GAMEOVER };
     void setState(State s);
+
+    // Public para que los estados puedan llamarlo
+    void checkCollisions();
 
 private:
     Game();
-    void checkCollisions();
 
     ecs::EntityManager* mngr_;
 
-    // Estados
     GameState* _state;
     GameState* _running_state;
     GameState* _paused_state;
     GameState* _newgame_state;
     GameState* _newround_state;
     GameState* _gameover_state;
+
+    FighterUtils* _fu;
+    AsteroidsUtils* _au;
 };
 
-// Macro de acceso rapido (igual que sdlutils() o ih())
 inline Game& game() {
     return *Game::Instance();
 }

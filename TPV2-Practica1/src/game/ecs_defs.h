@@ -1,6 +1,5 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
 
-
 #pragma once
 
 // Components list - must have at least one element
@@ -14,7 +13,9 @@
 	DISABLEONCOLLISION, \
 	GAMESTATE, \
 	GENERATIONS, \
-	HEALTH
+	HEALTH, \
+	FIGHTERCONTROL, \
+	WRAPAROUND
 
 // Groups list - must have at least one element
 //
