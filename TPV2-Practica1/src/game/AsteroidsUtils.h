@@ -2,14 +2,20 @@
 
 #pragma once
 #include <algorithm>
+#include <cmath>
 #include "AsteroidsFacade.h"
 #include "../ecs/Entity.h"
 #include "../ecs/EntityManager.h"
 #include "../components/Transform.h"
 #include "../components/Image.h"
+#include "../components/ImageWithFrames.h"
 #include "../components/Generations.h"
 #include "../components/DisableOnCollision.h"
 #include "../components/WrapAround.h"
+#include "../components/TeleportOnExit.h"
+#include "../components/Follow.h"
+#include "../components/TowardDestination.h"
+#include "../components/MaterialConsistency.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 #include "ecs_defs.h"
@@ -19,26 +25,23 @@ public:
     AsteroidsUtils(ecs::EntityManager* mngr) : mngr_(mngr) {}
     virtual ~AsteroidsUtils() {}
 
-    // Crea n asteroides en los bordes de la pantalla apuntando al centro
     void create_asteroids(int n) override {
-        auto& rng = sdlutils().rand();
         for (int i = 0; i < n; i++) {
-            int gen = rng.nextInt(1, 4); // [1, 3]
+            int gen = sdlutils().rand().nextInt(1, 4);
             createAsteroid(gen);
         }
     }
 
-    // Desactiva todos los asteroides del juego
     void remove_all_asteroids() override {
         for (auto* a : mngr_->getEntities(ecs::grp::ASTEROIDS))
             a->setAlive(false);
     }
 
-    // Divide un asteroide en 2 sub-asteroides (gen-1), o lo elimina si gen<=1
     void split_astroid(ecs::Entity* a) override {
         auto* tr = a->getComponent<Transform>();
         auto* gen = a->getComponent<Generations>();
-        if (tr == nullptr || gen == nullptr) return;
+        auto* mc = a->getComponent<MaterialConsistency>();
+        if (tr == nullptr || gen == nullptr) { a->setAlive(false); return; }
 
         int g = gen->numGenerations_;
         a->setAlive(false);
@@ -48,25 +51,21 @@ public:
             Vector2D p = tr->getPos();
             Vector2D v = tr->getVel();
             float w = tr->getWidth(), h = tr->getHeight();
+            int mcVal = (mc != nullptr) ? mc->getConsistency() : -1;
 
             for (int k = 0; k < 2; k++) {
                 float r = (float)rng.nextInt(0, 360);
                 Vector2D newPos = p + v.rotate(r) * 2.0f * std::max(w, h);
                 Vector2D newVel = v.rotate(r) * 1.1f;
-                int   newGen = g - 1;
-                float newSize = 10.0f + 5.0f * (float)newGen;
+                int newGen = g - 1;
 
-                auto* asteroid = mngr_->addEntity(ecs::grp::ASTEROIDS);
-                asteroid->addComponent<Transform>(newPos, newVel, newSize, newSize, 0.0f);
-                asteroid->addComponent<Image>(&sdlutils().images().at("asteroid"));
-                asteroid->addComponent<Generations>(newGen);
-                asteroid->addComponent<DisableOnCollision>();
-                asteroid->addComponent<WrapAround>();
+                auto* child = createBaseAsteroid(newPos, newVel, newGen);
+                if (mcVal >= 0)
+                    child->addComponent<MaterialConsistency>(mcVal);
             }
         }
     }
 
-    // Devuelve cuantos asteroides vivos hay
     int count() const {
         int n = 0;
         for (auto* a : mngr_->getEntities(ecs::grp::ASTEROIDS))
@@ -74,10 +73,51 @@ public:
         return n;
     }
 
+    float minDistanceToFighter() const {
+        auto* fighter = mngr_->getHandler(ecs::hdlr::FIGHTER_HDLR);
+        if (fighter == nullptr) return 0.0f;
+        auto* fTr = fighter->getComponent<Transform>();
+        if (fTr == nullptr) return 0.0f;
+
+        Vector2D fPos = fTr->getPos();
+        float minDist = 999999.0f;
+        for (auto* a : mngr_->getEntities(ecs::grp::ASTEROIDS)) {
+            if (!a->isAlive()) continue;
+            auto* aTr = a->getComponent<Transform>();
+            if (aTr == nullptr) continue;
+            float dist = (aTr->getPos() - fPos).magnitude();
+            if (dist < minDist) minDist = dist;
+        }
+        return (minDist < 999999.0f) ? minDist : 0.0f;
+    }
+
 private:
+    // Crea el cuerpo base de un asteroide (sin comportamiento ni imagen especial)
+    ecs::Entity* createBaseAsteroid(Vector2D pos, Vector2D vel, int gen) {
+        auto& rng = sdlutils().rand();
+        // Tamanios visibles: gen1=30, gen2=50, gen3=70
+        float size = 20.0f + 25.0f * (float)gen;
+
+        auto* asteroid = mngr_->addEntity(ecs::grp::ASTEROIDS);
+        asteroid->addComponent<Transform>(pos, vel, size, size, 0.0f);
+
+        // ImageWithFrames: asteroid o asteroid_gold aleatoriamente
+        asteroid->addComponent<ImageWithFrames>();
+
+        asteroid->addComponent<Generations>(gen);
+        asteroid->addComponent<DisableOnCollision>();
+
+        // ShowAtOpposieSide (WrapAround) o TeleportOnExit aleatoriamente
+        if (rng.nextInt(0, 2) == 0)
+            asteroid->addComponent<WrapAround>();
+        else
+            asteroid->addComponent<TeleportOnExit>();
+
+        return asteroid;
+    }
+
     void createAsteroid(int gen) {
         auto& rng = sdlutils().rand();
-        float aSize = 10.0f + 5.0f * (float)gen;
 
         // Posicion aleatoria en los bordes
         float ax, ay;
@@ -89,21 +129,25 @@ private:
         default: ax = (float)sdlutils().width(); ay = (float)rng.nextInt(0, sdlutils().height()); break;
         }
 
-        // Posicion central con offset aleatorio
         float cx = sdlutils().width() / 2.0f + (float)rng.nextInt(-100, 101);
         float cy = sdlutils().height() / 2.0f + (float)rng.nextInt(-100, 101);
 
         Vector2D p(ax, ay);
-        Vector2D c(cx, cy);
         float speed = rng.nextInt(1, 11) / 10.0f;
-        Vector2D v = (c - p).normalize() * speed;
+        Vector2D v = (Vector2D(cx, cy) - p).normalize() * speed;
 
-        auto* asteroid = mngr_->addEntity(ecs::grp::ASTEROIDS);
-        asteroid->addComponent<Transform>(p, v, aSize, aSize, 0.0f);
-        asteroid->addComponent<Image>(&sdlutils().images().at("asteroid"));
-        asteroid->addComponent<Generations>(gen);
-        asteroid->addComponent<DisableOnCollision>();
-        asteroid->addComponent<WrapAround>();
+        auto* asteroid = createBaseAsteroid(p, v, gen);
+
+        // Follow o TowardDestination (aleatorio, o ninguno)
+        int behavior = rng.nextInt(0, 3);
+        if (behavior == 1)
+            asteroid->addComponent<Follow>();
+        else if (behavior == 2)
+            asteroid->addComponent<TowardDestination>(speed);
+
+        // MaterialConsistency aleatoriamente
+        if (rng.nextInt(0, 2) == 0)
+            asteroid->addComponent<MaterialConsistency>();
     }
 
     ecs::EntityManager* mngr_;

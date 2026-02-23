@@ -5,7 +5,6 @@
 #include "../utils/Singleton.h"
 #include "../ecs/EntityManager.h"
 
-// Forward declarations
 class GameState;
 class FighterUtils;
 class AsteroidsUtils;
@@ -25,7 +24,9 @@ public:
     enum State { RUNNING, PAUSED, NEWGAME, NEWROUND, GAMEOVER };
     void setState(State s);
 
-    // Public para que los estados puedan llamarlo
+    // Indica si el estado cambio durante este frame (para abortar el update)
+    inline bool stateChanged() const { return _stateChanged; }
+
     void checkCollisions();
 
 private:
@@ -42,6 +43,8 @@ private:
 
     FighterUtils* _fu;
     AsteroidsUtils* _au;
+
+    bool _stateChanged;  // true si setState() fue llamado este frame
 };
 
 inline Game& game() {

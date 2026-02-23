@@ -1,133 +1,121 @@
 #pragma once
 #include <array>
-#include <cmath>
 #include <cassert>
 #include <cstdint>
-#include <algorithm>
 #include "../ecs/Component.h"
 #include "../ecs/Entity.h"
-#include "../ecs/EntityManager.h"
 #include "Transform.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
 struct Gun : ecs::Component {
-
-    // ---- Estructura de bala (pool interno) ----
-    struct Bullet {
-        bool used = false;
-        Vector2D pos;
-        Vector2D vel;
-        int width = 5;
-        int height = 20;
-        float rot = 0.0f;
-    };
-
-    constexpr static uint8_t _max_bullets = 20;
-    typedef std::array<Bullet, _max_bullets> bullets_array_t;
-    typedef bullets_array_t::iterator iterator;
-
     __CMPID_DECL__(ecs::cmp::GUN)
 
-        Gun() : _lastShootTime(0), _lastUsedIdx(0) {
-        reset();
-    }
+        struct Bullet {
+        bool     used = false;
+        Vector2D pos;           // top-left
+        Vector2D vel;
+        float    rot = 0.0f; // grados, misma que el caza
+        float    width = 5.0f;
+        float    height = 14.0f;
+    };
 
-    // Marca todas las balas como no usadas
-    void reset() {
-        for (auto& b : _bullets)
-            b.used = false;
-    }
+    static constexpr int MAX_BULLETS = 20;
+    typedef std::array<Bullet, MAX_BULLETS> BulletArray;
+    typedef BulletArray::iterator iterator;
 
-    // Iteradores para recorrer el array desde fuera (colisiones)
+    Gun() : _lastShootTime(0), _lastIdx(0) { reset(); }
+
+    void reset() { for (auto& b : _bullets) b.used = false; }
+
     iterator begin() { return _bullets.begin(); }
     iterator end() { return _bullets.end(); }
 
-    // Update: mover balas activas + disparar con S
     void update() override {
-        // Mover balas activas
+        float sw = (float)sdlutils().width();
+        float sh = (float)sdlutils().height();
+
         for (auto& b : _bullets) {
-            if (b.used)
-                b.pos = b.pos + b.vel;
+            if (!b.used) continue;
+            b.pos = b.pos + b.vel;
+            if (b.pos.getX() < -b.width || b.pos.getX() > sw ||
+                b.pos.getY() < -b.height || b.pos.getY() > sh)
+                b.used = false;
         }
 
-        // Disparar si se pulsa S y ha pasado suficiente tiempo (0.25s = 250ms)
-        auto& ihdlr = ih();
-        if (ihdlr.isKeyDown(SDL_SCANCODE_S)) {
+        if (ih().isKeyDown(SDL_SCANCODE_S)) {
             uint32_t now = sdlutils().virtualTimer().currTime();
             if (now - _lastShootTime >= 250u) {
                 _lastShootTime = now;
-                fireFromFighter();
+                fire();
             }
         }
     }
 
-    // Render: dibujar todas las balas activas
     void render() override {
-        auto& tex = sdlutils().images().at("fire");
-        for (auto& b : _bullets) {
+        const auto& tex = sdlutils().images().at("fire");
+        for (const auto& b : _bullets) {
             if (!b.used) continue;
+            // Renderizar sin rotacion visual para simplificar
+            // (la bala va en la direccion correcta, solo el sprite es siempre vertical)
             SDL_FRect dest{
                 b.pos.getX(),
                 b.pos.getY(),
-                (float)b.width,
-                (float)b.height
+                b.width,
+                b.height
             };
-            tex.render(dest, b.rot);
+            tex.render(dest);
         }
     }
 
 private:
-    // Calcula posicion/velocidad de la bala y la inserta en el pool
-    void fireFromFighter() {
+    void fire() {
         auto* tr = _ent->getComponent<Transform>();
         assert(tr != nullptr);
 
-        Vector2D p = tr->getPos();
-        Vector2D v = tr->getVel();
-        float    r = tr->getRot();
-        float    w = tr->getWidth();
-        float    h = tr->getHeight();
+        float r = tr->getRot();
+        float w = tr->getWidth();
+        float h = tr->getHeight();
+        Vector2D pos = tr->getPos();
+        Vector2D vel = tr->getVel();
 
-        int bw = 5;
-        int bh = 20;
+        // Centro del caza
+        Vector2D center = pos + Vector2D(w * 0.5f, h * 0.5f);
 
-        // Calculo segun el enunciado
-        Vector2D c = p + Vector2D(w / 2.0f, h / 2.0f);
-        Vector2D bp = c - Vector2D((float)(bw / 2), h / 2.0f + 5.0f + (float)bh).rotate(r)
-            - Vector2D((float)(bw / 2), (float)(bh / 2));
-        Vector2D bv = Vector2D(0.0f, -1.0f).rotate(r) * (v.magnitude() + 5.0f);
-        float    br = Vector2D(0.0f, -1.0f).angle(bv);
+        // La punta del caza esta arriba del centro, rotada segun r
+        // Vector "arriba" del caza = (0,-1) rotado r grados
+        Vector2D up = Vector2D(0.0f, -1.0f).rotate(r);
 
-        shoot(bp, bv, bw, bh, br);
+        // La bala sale de la punta: centro + up * (h/2 + 2)
+        Vector2D bulletCenter = center + up * (h * 0.5f + 2.0f);
 
-        sdlutils().soundEffects().at("gunshot").play();
-    }
+        float bw = 5.0f, bh = 14.0f;
+        // top-left de la bala
+        Vector2D bp = bulletCenter - Vector2D(bw * 0.5f, bh * 0.5f);
 
-    // Busqueda circular de bala libre e inicializacion
-    void shoot(Vector2D p, Vector2D vel, int w, int h, float r) {
-        for (uint8_t i = 0; i < _max_bullets; i++) {
-            uint8_t idx = (_lastUsedIdx + 1 + i) % _max_bullets;
+        // Velocidad en la direccion del caza
+        float speed = vel.magnitude() + 8.0f;
+        Vector2D bv = up * speed;
+
+        // Insertar en pool circular
+        for (int i = 0; i < MAX_BULLETS; i++) {
+            int idx = (_lastIdx + 1 + i) % MAX_BULLETS;
             if (!_bullets[idx].used) {
                 _bullets[idx].used = true;
-                _bullets[idx].pos = p;
-                _bullets[idx].vel = vel;
-                _bullets[idx].width = w;
-                _bullets[idx].height = h;
+                _bullets[idx].pos = bp;
+                _bullets[idx].vel = bv;
                 _bullets[idx].rot = r;
-                _lastUsedIdx = idx;
+                _bullets[idx].width = bw;
+                _bullets[idx].height = bh;
+                _lastIdx = idx;
+                sdlutils().soundEffects().at("gunshot").play();
                 return;
             }
         }
-        // Si no hay bala libre, no se dispara
     }
 
-    uint32_t        _lastShootTime;
-    uint8_t         _lastUsedIdx;
-    bullets_array_t _bullets;
+    uint32_t   _lastShootTime;
+    int        _lastIdx;
+    BulletArray _bullets;
 };

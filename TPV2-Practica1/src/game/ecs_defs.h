@@ -2,11 +2,10 @@
 
 #pragma once
 
-// Components list - must have at least one element
-//
 #define _CMPS_LIST_ \
 	TRANSFORM, \
 	IMAGE, \
+	IMAGEWITHFRAMES, \
 	DEACCELERATION, \
 	FOLLOWMOUSE, \
 	GUN, \
@@ -15,17 +14,17 @@
 	GENERATIONS, \
 	HEALTH, \
 	FIGHTERCONTROL, \
-	WRAPAROUND
+	WRAPAROUND, \
+	TELEPORTONEXIT, \
+	FOLLOW, \
+	TOWARDDESTINATION, \
+	MATERIALCONSISTENCY
 
-// Groups list - must have at least one element
-//
 #define _GRPS_LIST_ \
 	ASTEROIDS, \
 	FIGHTER, \
 	BULLETS
 
-// Handlers list - must have at least one element
-//
 #define _HDLRS_LIST_ \
 	FIGHTER_HDLR, \
 	ASTEROIDS_HDLR

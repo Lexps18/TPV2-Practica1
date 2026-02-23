@@ -35,6 +35,9 @@
     <ClCompile Include="src\utils\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\ImageWithFrames.h" />
+    <ClInclude Include="src\components\MaterialConsistency.h" />
+    <ClInclude Include="src\components\Follow.h" />
     <ClInclude Include="src\game\AsteroidsUtils.h" />
     <ClInclude Include="src\game\FighterUtils.h" />
     <ClInclude Include="src\game\AsteroidsFacade.h" />
@@ -46,7 +49,6 @@
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\Generations.h" />
     <ClInclude Include="src\components\DisableOnCollision.h" />
-    <ClInclude Include="src\components\FollowMouse.h" />
     <ClInclude Include="src\components\DeAcceleration.h" />
     <ClInclude Include="SDL\include\SDL3\SDL.h" />
     <ClInclude Include="SDL\include\SDL3\SDL_assert.h" />
@@ -171,6 +173,8 @@
     <ClInclude Include="src\utils\Singleton.h" />
     <ClInclude Include="src\utils\Vector2D.h" />
     <ClInclude Include="src\components\Wraparound.h" />
+    <ClInclude Include="src\components\TowardDestination.h" />
+    <ClInclude Include="src\components\TeleportOnExit.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\x64\Debug\TPV2.exe" />

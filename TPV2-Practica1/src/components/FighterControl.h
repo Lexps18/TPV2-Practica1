@@ -7,11 +7,11 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 
-// Controla la aceleracion del caza con W (o flecha arriba).
-// La formula de aceleracion y limite de velocidad sigue el enunciado.
+// Controla el caza:
+// - Flechas izquierda/derecha: girar 5 grados
+// - W o flecha arriba: acelerar (con sonido thrust)
 
 struct FighterControl : ecs::Component {
-
     __CMPID_DECL__(ecs::cmp::FIGHTERCONTROL)
 
         FighterControl(float thrust = 0.2f, float speedLimit = 3.0f)
@@ -22,21 +22,27 @@ struct FighterControl : ecs::Component {
         auto* tr = _ent->getComponent<Transform>();
         assert(tr != nullptr);
 
-        // Tecla W o flecha arriba para acelerar
         auto& ihdlr = ih();
+
+        // Girar con flechas izquierda/derecha
+        if (ihdlr.isKeyDown(SDL_SCANCODE_LEFT))
+            tr->setRot(tr->getRot() - 5.0f);
+        if (ihdlr.isKeyDown(SDL_SCANCODE_RIGHT))
+            tr->setRot(tr->getRot() + 5.0f);
+
+        // Acelerar con W o flecha arriba
         if (ihdlr.isKeyDown(SDL_SCANCODE_W) || ihdlr.isKeyDown(SDL_SCANCODE_UP)) {
             Vector2D vel = tr->getVel();
-            float    rot = tr->getRot();
+            float rot = tr->getRot();
 
-            // Formula del enunciado:
-            // new_vel = vel + Vector2D(0,-1).rotate(r) * thrust
             Vector2D newVel = vel + Vector2D(0.0f, -1.0f).rotate(rot) * _thrust;
-
-            // Limitar la magnitud a speedLimit
             if (newVel.magnitude() > _speedLimit)
                 newVel = newVel.normalize() * _speedLimit;
 
             tr->getVel() = newVel;
+
+            // Sonido de empuje
+            sdlutils().soundEffects().at("thrust").play();
         }
     }
 

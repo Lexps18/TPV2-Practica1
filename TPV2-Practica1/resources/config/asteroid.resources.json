@@ -9,21 +9,12 @@
       "id": "NES24",
       "file": "resources/fonts/NES-Chimera.ttf",
       "size": 24
-    },
-    {
-      "id": "ARIAL16",
-      "file": "resources/fonts/ARIAL.ttf",
-      "size": 16
     }
   ],
   "images": [
     {
       "id": "fighter",
       "file": "resources/images/fighter.png"
-    },
-    {
-      "id": "fighter2",
-      "file": "resources/images/fighter2.png"
     },
     {
       "id": "asteroid",
@@ -40,10 +31,6 @@
     {
       "id": "heart",
       "file": "resources/images/heart.png"
-    },
-    {
-      "id": "star",
-      "file": "resources/images/star.png"
     }
   ],
   "sounds": [
@@ -58,10 +45,6 @@
     {
       "id": "thrust",
       "file": "resources/sound/thrust.wav"
-    },
-    {
-      "id": "thrust1",
-      "file": "resources/sound/thrust1.wav"
     }
   ]
 }

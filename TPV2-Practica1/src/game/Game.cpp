@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include "../components/Transform.h"
-#include "../components/Image.h"
 #include "../components/Gun.h"
 #include "../components/Health.h"
 #include "../components/Generations.h"
@@ -16,6 +15,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
+#include "../utils/Collisions.h"
 #include "ecs_defs.h"
 
 Game::Game() :
@@ -27,7 +27,8 @@ Game::Game() :
     _newround_state(nullptr),
     _gameover_state(nullptr),
     _fu(nullptr),
-    _au(nullptr)
+    _au(nullptr),
+    _stateChanged(false)
 {
 }
 
@@ -84,6 +85,7 @@ void Game::setState(State s) {
     case NEWROUND: _state = _newround_state; break;
     case GAMEOVER: _state = _gameover_state; break;
     }
+    _stateChanged = true;
     _state->enter();
 }
 
@@ -94,7 +96,8 @@ void Game::start() {
     vt.resetTime();
 
     while (!exit) {
-        Uint32 startTime = vt.currTime();
+        // Registrar el tiempo real actual en el timer virtual
+        Uint32 startTime = (Uint32)vt.regCurrTime();
         ihdlr.refresh();
 
         if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
@@ -102,9 +105,10 @@ void Game::start() {
             continue;
         }
 
+        _stateChanged = false;
         _state->update();
 
-        Uint32 frameTime = vt.currTime() - startTime;
+        Uint32 frameTime = (Uint32)vt.currTime() - startTime;
         if (frameTime < 10)
             SDL_Delay(10 - frameTime);
     }
@@ -120,7 +124,7 @@ void Game::checkCollisions() {
 
     auto& asteroids = mngr_->getEntities(ecs::grp::ASTEROIDS);
 
-    // Balas vs Asteroides
+    // --- Balas vs Asteroides ---
     if (fighterGun != nullptr) {
         for (auto& bullet : *fighterGun) {
             if (!bullet.used) continue;
@@ -129,12 +133,12 @@ void Game::checkCollisions() {
                 auto* asTr = asteroid->getComponent<Transform>();
                 if (asTr == nullptr) continue;
 
-                float bx = bullet.pos.getX(), by = bullet.pos.getY();
-                float bw = (float)bullet.width, bh = (float)bullet.height;
-                float ax = asTr->getPos().getX(), ay = asTr->getPos().getY();
-                float aw = asTr->getWidth(), ah = asTr->getHeight();
+                bool hit = Collisions::collidesWithRotation(
+                    bullet.pos, (float)bullet.width, (float)bullet.height, bullet.rot,
+                    asTr->getPos(), asTr->getWidth(), asTr->getHeight(), 0.0f
+                );
 
-                if (bx < ax + aw && bx + bw > ax && by < ay + ah && by + bh > ay) {
+                if (hit) {
                     bullet.used = false;
                     _au->split_astroid(asteroid);
                     sdlutils().soundEffects().at("explosion").play();
@@ -144,28 +148,29 @@ void Game::checkCollisions() {
         }
     }
 
-    // Caza vs Asteroides
+    // Si el estado cambio durante las colisiones de balas, salir
+    if (_stateChanged) return;
+
+    // --- Caza vs Asteroides ---
     for (auto* asteroid : asteroids) {
         if (!asteroid->isAlive()) continue;
         auto* asTr = asteroid->getComponent<Transform>();
         if (asTr == nullptr) continue;
 
-        float fx = fighterTr->getPos().getX(), fy = fighterTr->getPos().getY();
-        float fw = fighterTr->getWidth(), fh = fighterTr->getHeight();
-        float ax = asTr->getPos().getX(), ay = asTr->getPos().getY();
-        float aw = asTr->getWidth(), ah = asTr->getHeight();
+        bool hit = Collisions::collidesWithRotation(
+            fighterTr->getPos(), fighterTr->getWidth(), fighterTr->getHeight(), fighterTr->getRot(),
+            asTr->getPos(), asTr->getWidth(), asTr->getHeight(), 0.0f
+        );
 
-        if (fx < ax + aw && fx + fw > ax && fy < ay + ah && fy + fh > ay) {
+        if (hit) {
             asteroid->setAlive(false);
+            sdlutils().soundEffects().at("explosion").play();
             int livesLeft = _fu->update_lives(-1);
-            if (livesLeft <= 0) {
-                fighter->setAlive(false);
+            if (livesLeft <= 0)
                 setState(GAMEOVER);
-            }
-            else {
+            else
                 setState(NEWROUND);
-            }
-            return;
+            return;  // salir inmediatamente, no tocar mas entidades
         }
     }
 }
